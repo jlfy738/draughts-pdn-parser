@@ -54,7 +54,7 @@ PDNObject.prototype.isTagValueEmpty = function(value) {
 };
 
 PDNObject.prototype.hasFEN = function() {
-    return !isTagValueEmpty(this.getTagPair("FEN"));
+    return !this.isTagValueEmpty(this.getTagPair("FEN"));
 };
 
 PDNObject.prototype.getMoves = function() {
@@ -160,4 +160,7 @@ PDNObject.prototype.debugMoveText = function() {
         console.log("----------");
     }
 };
+
+
+module.exports = PDNObject;
 

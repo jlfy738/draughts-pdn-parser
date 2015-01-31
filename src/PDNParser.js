@@ -1,3 +1,5 @@
+var PDNObject = require('./PDNObject');
+
 function PDNParser(pdnText) {
     // Tag Pair
     this._patternTagPair = /^\[\s*(\w*)\s*\"(.*?)\"\s*\]$/;
@@ -418,4 +420,6 @@ PDNParser.prototype.debugCutGames = function() {
     }
 
 };
+
+module.exports = PDNParser;
 
