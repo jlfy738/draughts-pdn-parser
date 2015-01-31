@@ -12,7 +12,7 @@ function PDNObject() {
 PDNObject.prototype.getTagPair = function(tagName) {
     var value = "??";
 
-    if (this.tags != null && (tagName in this.tags) {
+    if (this.tags != null && (tagName in this.tags)) {
         value = this.tags[tagName];
     }
 
@@ -155,7 +155,7 @@ PDNObject.prototype.debugMoveText = function() {
         var mapMove = this.listMoveText[m];
         var keys = Object.keys(mapMove);
         for (var k = 0; k < keys.length; k++) {
-            console.log(keys[k] + " = " + mapMove[keys[k]);
+            console.log(keys[k] + " = " + mapMove[keys[k]]);
         }
         console.log("----------");
     }
