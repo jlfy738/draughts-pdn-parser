@@ -35,6 +35,7 @@ PDNParser.prototype.setPDNText = function(pdnText) {
 PDNParser.prototype._init = function() {
     this.pdnSourceText = this.pdnSourceText.trim() + " "; // for regexp...
     this.indexes = this._cutPDN();
+    this._parseNameOfGames();
 };
 
 PDNParser.prototype._readyToParse = function(numGame) {
@@ -223,6 +224,51 @@ PDNParser.prototype._cutPDN = function() {
     }
 
     return liste;
+};
+
+PDNParser.prototype._parseNameOfGames = function() {
+    for (var k = 0; k < this.indexes.length; k++) {
+        var h = this.indexes[k];
+        var idxStart = h["idxStartGame"];
+        var idxEnd   = h["idxEndGame"];
+
+        var cText = this.pdnSourceText.substring(idxStart, idxEnd);
+        cText = cText.trim() + " ";
+
+        h["tagEvent"] = this._extractTagPairValueForKey(cText, "Event");
+        h["tagDate"]  = this._extractTagPairValueForKey(cText, "Date");
+        h["tagWhite"] = this._extractTagPairValueForKey(cText, "White");
+        h["tagBlack"] = this._extractTagPairValueForKey(cText, "Black");
+        h["tagRound"] = this._extractTagPairValueForKey(cText, "Round");
+    }
+};
+
+PDNParser.prototype._extractTagPairValueForKey = function(gameText, tagPairKey) {
+    var re = new RegExp("\\[\\s*" + tagPairKey + "\\s*\"(.*?)\"\\s*\\]", "i");
+    var m = re.exec(gameText);
+
+    var value = "";
+    if (m != null) {
+        value = m[1].trim();
+    }
+
+    if (value == "") {
+        value = "??";
+    }
+
+    return value;
+};
+
+PDNParser.prototype.getGameTitle = function(numGame, pattern) {
+    var h = this.indexes[numGame - 1];
+    var keywords = ["tagEvent", "tagDate", "tagWhite", "tagBlack", "tagRound"];
+
+    var title = pattern;
+    for (var k = 0; k < keywords.length; k++) {
+        var keyword = keywords[k];
+        title = title.replace(keyword, h[keyword]);
+    }
+    return title;
 };
 
 
