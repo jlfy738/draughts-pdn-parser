@@ -5,14 +5,14 @@ function PDNParser(pdnText) {
     this._patternTagPair = /^\[\s*(\w*)\s*\"(.*?)\"\s*\]$/;
 
     // MoveText
-    this._patternMoveText = /(?:(\d+)\.(?:\.\.|\s+\.\.\.)?)?\s+(\d+(?:[-x]\d+)+)([\!\?\*\(\)]*)\s+(?:\{([^}]*)\}){0,1}\s*(?:(\d+(?:[-x]\d+)+)([\!\?\*\(\)]*)\s+?(?:\{([^}]*)\}){0,1})?/g;
+    this._patternMoveText = /(?:(\d+)\.(?:\.\.|\s+\.\.\.)?)?\s*(\d+(?:[-x]\d+)+)([\!\?\*\(\)]*)\s+(?:\{([^}]*)\}){0,1}\s*(?:(\d+(?:[-x]\d+)+)([\!\?\*\(\)]*)\s+?(?:\{([^}]*)\}){0,1})?/g;
 
     // Game-termination :
     // " 1-0 " ; " 0-1 " ; " 1/2-1/2 " ; " * "
     // " 2-0 " ; " 0-2 " ; " 1-1 "
     // Note : no confusion with move notation because of zero square do not exist and move on contigus squares is not valid
     // idem with asterisk and move 'glyph' because of leading and trailing space.
-    this._patternGameTermination = /\s([012]\-[012]|1\/2\-1\/2|\*)\s/g;
+    this._patternGameTermination = /(?:^|\s)([012]\-[012]|1\/2\-1\/2|\*)(?:$|\s)/g;
 
     // FEN Tag value
     this._patternFEN = /^(W|B):(W|B)((?:K?\d*)(?:,K?\d+)*?)(?::(W|B)((?:K?\d*)(?:,K?\d+)*?))?$/;
@@ -396,10 +396,11 @@ PDNParser.prototype._parseMoveText = function(texte, idx) {
     rTexte = rTexte + " "; // Pour la regexp
 
     // Game-termination
+    this._patternGameTermination.lastIndex = 0; // Reset the starting position of the next call
     var m = this._patternGameTermination.exec(rTexte);
     //var m = rTexte.match(this._patternGameTermination);
     if (m == null) {
-        console.log("non trouvé !");
+        console.log("Game termination not found !");
         return liste;
     }
 
