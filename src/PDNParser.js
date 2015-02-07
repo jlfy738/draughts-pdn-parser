@@ -259,7 +259,15 @@ PDNParser.prototype._extractTagPairValueForKey = function(gameText, tagPairKey) 
     return value;
 };
 
-PDNParser.prototype.getGameTitle = function(numGame, pattern) {
+PDNParser.prototype.getTitle = function(numGame, pattern) {
+    if (!this._readyToParse(numGame)) {
+        return "";
+    }
+
+    if (pattern === undefined) {
+        pattern = "tagEvent (tagDate) : tagWhite - tagBlack [tagRound]";
+    }
+
     var h = this.indexes[numGame - 1];
     var keywords = ["tagEvent", "tagDate", "tagWhite", "tagBlack", "tagRound"];
 
@@ -269,6 +277,18 @@ PDNParser.prototype.getGameTitle = function(numGame, pattern) {
         title = title.replace(keyword, h[keyword]);
     }
     return title;
+};
+
+PDNParser.prototype.getTitles = function(pattern) {
+    var list = [];
+
+    var nb = this.getGameCount();
+    for (var k = 0; k < nb; k++) {
+        var numGame = k + 1;
+        var title = this.getTitle(numGame, pattern);
+        list.push({'num':numGame, 'title':title});
+    }
+    return list;
 };
 
 
