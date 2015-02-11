@@ -12,7 +12,7 @@ function PDNParser(pdnText) {
     // " 2-0 " ; " 0-2 " ; " 1-1 "
     // Note : no confusion with move notation because of zero square do not exist and move on contigus squares is not valid
     // idem with asterisk and move 'glyph' because of leading and trailing space.
-    this._patternGameTermination = /(?:^|\s)([012]\-[012]|1\/2\-1\/2|\*)(?:$|\s)/g;
+    this._patternGameTermination = /\s([012]\-[012]|1\/2\-1\/2|\*)\s/g;
 
     // FEN Tag value
     this._patternFEN = /^(W|B):(W|B)((?:K?\d*)(?:,K?\d+)*?)(?::(W|B)((?:K?\d*)(?:,K?\d+)*?))?$/;
