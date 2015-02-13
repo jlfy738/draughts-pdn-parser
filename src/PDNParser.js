@@ -240,6 +240,7 @@ PDNParser.prototype._parseNameOfGames = function() {
         h["tagWhite"] = this._extractTagPairValueForKey(cText, "White");
         h["tagBlack"] = this._extractTagPairValueForKey(cText, "Black");
         h["tagRound"] = this._extractTagPairValueForKey(cText, "Round");
+        h["tagResult"] = this._extractTagPairValueForKey(cText, "Result");
     }
 };
 
@@ -265,11 +266,11 @@ PDNParser.prototype.getTitle = function(numGame, pattern) {
     }
 
     if (pattern === undefined) {
-        pattern = "tagEvent (tagDate) : tagWhite - tagBlack [tagRound]";
+        pattern = "tagEvent (tagDate) : tagWhite - tagBlack [tagRound] - tagResult";
     }
 
     var h = this.indexes[numGame - 1];
-    var keywords = ["tagEvent", "tagDate", "tagWhite", "tagBlack", "tagRound"];
+    var keywords = ["tagEvent", "tagDate", "tagWhite", "tagBlack", "tagRound", "tagResult"];
 
     var title = pattern;
     for (var k = 0; k < keywords.length; k++) {
