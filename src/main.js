@@ -1,2 +1,1 @@
-var PDNParser = require('./PDNParser');
-
+module.exports = exports = require('./PDNParser');

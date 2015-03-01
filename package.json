@@ -1,6 +1,6 @@
 {
-  "name": "pdn-jsparser",
-  "version" : "0.0.1",
+  "name": "draughts-pdn-parser",
+  "version" : "1.0.0",
   "devDependencies": {
     "browserify": "^6.3.3",
     "chai": "^1.10.0",
@@ -9,7 +9,7 @@
   },
   "main" : "src/main.js",
   "scripts": {
-    "build": "rm -rf ./dist/ && mkdir \"./dist/\" && browserify ./src/main.js -o ./dist/pdn-jsparser.js",
+    "build": "rm -rf ./dist/ && mkdir \"./dist/\" && browserify ./src/main.js -o ./dist/draughts-pdn-parser.js",
     "test": "mocha test/**/*.test.js"
   },
   "licence" : "MIT"
