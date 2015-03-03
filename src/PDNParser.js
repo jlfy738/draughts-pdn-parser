@@ -265,7 +265,7 @@ PDNParser.prototype.getTitle = function(numGame, pattern) {
         return "";
     }
 
-    if (pattern === undefined) {
+    if (!pattern) {
         pattern = "tagEvent (tagDate) : tagWhite - tagBlack [tagRound] - tagResult";
     }
 
