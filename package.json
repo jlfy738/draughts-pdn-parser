@@ -2,15 +2,13 @@
   "name": "draughts-pdn-parser",
   "version": "1.0.0",
   "devDependencies": {
-    "browserify": "^17.0.1",
-    "chai": "^1.10.0",
-    "mocha": "^11.2.2",
-    "rewire": "^2.1.3"
+    "esbuild": "^0.24.2",
+    "gulp": "^5.0.1"
   },
   "main": "src/main.js",
   "scripts": {
-    "build": "rm -rf ./dist/ && mkdir \"./dist/\" && browserify ./src/main.js -o ./dist/draughts-pdn-parser.js",
-    "test": "mocha test/**/*.test.js"
+    "build": "gulp build",
+    "test": "node --test"
   },
   "licence": "GPL-3.0"
 }
